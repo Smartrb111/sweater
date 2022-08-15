@@ -5,10 +5,23 @@
         <meta charset="UTF-8">
         <title>Sweater</title>
         <link rel="stylesheet" href="/static/style.css">
-<#--подгоняем изображения под разные экраны-->
+
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS подключаем стили bootstraop-->
+
+        <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+      <#--  <title>reCAPTCHA demo: Simple page</title>
+        <script src="https://www.google.com/recaptcha/api.js">
+            function onSubmit(token) {
+                document.getElementById("demo-form").submit();
+            }
+
+        </script>
+        <button class="g-recaptcha"
+                data-sitekey="6Lfw83EhAAAAAJoZYmYGY0SrXuqrnowFxi6qmB4z"
+                data-callback='onSubmit'
+                data-action='submit'>Submit
+        </button>-->
     </head>
     <body>
     <#include "navbar.ftlh">
@@ -21,5 +34,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
     </body>
-</html>
+    </html>
 </#macro>
