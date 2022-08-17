@@ -15,7 +15,7 @@ import java.util.Set;
 @Table(name = "usr")
 public class User implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @NotBlank(message = "Username cannot be empty")
     private String username;

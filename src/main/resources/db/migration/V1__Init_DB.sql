@@ -1,3 +1,5 @@
+create sequence hibernate_sequence start 1 increment 1;
+
 create table message (
                          id bigserial
                              constraint pk_message primary key,

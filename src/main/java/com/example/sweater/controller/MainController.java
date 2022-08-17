@@ -82,6 +82,8 @@ public class MainController {
         return "main";
     }
 
+
+    //TODO Где маппинг?
     private void saveFile(@Valid Message message, @RequestParam("file") MultipartFile file) throws IOException {
         if (file != null && !file.getOriginalFilename().isEmpty()) {
             File uploadDir = new File(uploadPath);
