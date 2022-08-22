@@ -18,9 +18,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
     @Autowired
     private UserService userService;
 
+    /*@Autowired
+    private BeanConfig beanConfig;*/
 
 
     @Override
@@ -40,10 +43,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .permitAll();
     }
 
-    @Override
+   @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+       PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(8);
         auth.userDetailsService(userService)
-                .passwordEncoder(NoOpPasswordEncoder.getInstance());
+                .passwordEncoder(passwordEncoder);
 
     }
 

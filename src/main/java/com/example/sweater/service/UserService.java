@@ -4,6 +4,7 @@ import com.example.sweater.domain.Role;
 import com.example.sweater.domain.User;
 import com.example.sweater.repos.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,21 +15,30 @@ import org.springframework.util.StringUtils;
 import java.util.*;
 import java.util.stream.Collectors;
 
-
 @Service
-public class UserService implements UserDetailsService{
+public class UserService implements UserDetailsService {
+
     @Autowired
     private UserRepo userRepo;
 
     @Autowired
     private MailSender mailSender;
 
-     @Autowired
-     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    /*@Value("${hostname}")
+    private String hostname;*/
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepo.findByUsername(username);
+        User user = userRepo.findByUsername(username);
+
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
+
+        return user;
     }
 
     public boolean addUser(User user) {
@@ -54,8 +64,9 @@ public class UserService implements UserDetailsService{
         if (!StringUtils.isEmpty(user.getEmail())) {
             String message = String.format(
                     "Hello, %s! \n" +
-                            "Welcome to Sweater. Please, visit next link: http://localhost:8080/activate/%s",
+                            "Welcome to Sweater. Please, visit next link: http://%s/activate/%s",
                     user.getUsername(),
+                   /* hostname,*/
                     user.getActivationCode()
             );
 
@@ -102,25 +113,37 @@ public class UserService implements UserDetailsService{
     public void updateProfile(User user, String password, String email) {
         String userEmail = user.getEmail();
 
-        boolean isEmailChange = (email != null && !email.equals(userEmail)) ||
-                (userEmail !=null && ! userEmail.equals(email));
+        boolean isEmailChanged = (email != null && !email.equals(userEmail)) ||
+                (userEmail != null && !userEmail.equals(email));
 
-        if (isEmailChange){
+        if (isEmailChanged) {
             user.setEmail(email);
 
-            if (!StringUtils.isEmpty(email)){
+            if (!StringUtils.isEmpty(email)) {
                 user.setActivationCode(UUID.randomUUID().toString());
             }
         }
 
-        if(!StringUtils.isEmpty(password)){
+        if (!StringUtils.isEmpty(password)) {
             user.setPassword(password);
         }
 
         userRepo.save(user);
 
-        if(isEmailChange){
+        if (isEmailChanged) {
             sendMessage(user);
         }
+    }
+
+    public void subscribe(User currentUser, User user) {
+        user.getSubscribers().add(currentUser);
+
+        userRepo.save(user);
+    }
+
+    public void unsubscribe(User currentUser, User user) {
+        user.getSubscribers().remove(currentUser);
+
+        userRepo.save(user);
     }
 }

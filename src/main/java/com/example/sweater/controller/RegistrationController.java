@@ -27,10 +27,12 @@ public class RegistrationController {
 
     @Autowired
     private UserService userService;
+/*
 
-   /* @Value("${recaptcha.secret}")
+    @Value("${recaptcha.secret}")
     private String secret;
 */
+
     @Autowired
     private RestTemplate restTemplate;
 
@@ -42,15 +44,15 @@ public class RegistrationController {
     @PostMapping("/registration")
     public String addUser(
             @RequestParam("password2") String passwordConfirm,
-            /*@RequestParam("g-recaptcha-response") String captchaResponce,*/
+            @RequestParam("g-recaptcha-response") String captchaResponce,
             @Valid User user,
             BindingResult bindingResult,
             Model model
     ) {
-       /* String url = String.format(CAPTCHA_URL, secret, captchaResponce);
-        CaptchaResponseDto response = restTemplate.postForObject(url, Collections.emptyList(), CaptchaResponseDto.class)*//*;
+        /*String url = String.format(CAPTCHA_URL, secret, captchaResponce);
+        CaptchaResponseDto response = restTemplate.postForObject(url, Collections.emptyList(), CaptchaResponseDto.class);*/
 
-        if (!response.isSuccess()) {
+        /*if (!response.isSuccess()) {
             model.addAttribute("captchaError", "Fill captcha");
         }*/
 
@@ -64,13 +66,13 @@ public class RegistrationController {
             model.addAttribute("passwordError", "Passwords are different!");
         }
 
-        /*if (isConfirmEmpty || bindingResult.hasErrors() || !response.isSuccess()) {
+       if (isConfirmEmpty || bindingResult.hasErrors()) {/*|| !response.isSuccess*/
             Map<String, String> errors = ControllerUtils.getErrors(bindingResult);
 
             model.mergeAttributes(errors);
 
             return "registration";
-        }*/
+        }
 
         if (!userService.addUser(user)) {
             model.addAttribute("usernameError", "User exists!");

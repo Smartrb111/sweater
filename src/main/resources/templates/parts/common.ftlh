@@ -10,18 +10,7 @@
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-      <#--  <title>reCAPTCHA demo: Simple page</title>
-        <script src="https://www.google.com/recaptcha/api.js">
-            function onSubmit(token) {
-                document.getElementById("demo-form").submit();
-            }
-
-        </script>
-        <button class="g-recaptcha"
-                data-sitekey="6Lfw83EhAAAAAJoZYmYGY0SrXuqrnowFxi6qmB4z"
-                data-callback='onSubmit'
-                data-action='submit'>Submit
-        </button>-->
+       <#-- <script src='https://www.google.com/recaptcha/api.js'></script>-->
     </head>
     <body>
     <#include "navbar.ftlh">
