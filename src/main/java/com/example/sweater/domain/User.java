@@ -37,6 +37,7 @@ public class User implements UserDetails {
     @Email(message = "Email is not correct")
     @NotBlank(message = "Email cannot be empty")
     private String email;
+
     private String activationCode;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
